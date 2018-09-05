@@ -1,3 +1,9 @@
+CREATE DATABASE pcf_td;
+GRANT ALL ON pcf_td.* TO 'pcftd1'@'localhost' IDENTIFIED BY 'pcftd1';
+GRANT ALL ON pcf_td.* TO 'pcftd1'@'%' IDENTIFIED BY 'pcftd1';
+
+USE pcf_td;
+
 create table if not exists hibernate_sequence
 (
 	next_val bigint null

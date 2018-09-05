@@ -1,0 +1,2 @@
+FROM mysql:5.7
+COPY ./src/main/db-scripts/pcf-td.sql /docker-entrypoint-initdb.d/

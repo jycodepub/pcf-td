@@ -1,0 +1,48 @@
+version: "3.3"
+networks:
+  dev:
+    driver: bridge
+services:
+  #-------------------------------------------------
+  #                   MySQL
+  #-------------------------------------------------
+  pcf-td-mysql:
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+      labels:
+        com.fiserv.edd.pcf.td: ${TAG}
+    image: pcf-td-mysql:${TAG}
+    container_name: pcf-td-mysql
+    networks:
+    - dev
+    ports:
+    - ${MYSQL_PORT}:3306
+    environment:
+    - MYSQL_ROOT_PASSWORD=pcftd1
+    - MYSQL_USER=pcftd1
+    - MYSQL_PASSWORD=pcftd1
+    - TZ=America/Chicago
+  #-------------------------------------------------
+  #                   pcf-td
+  #-------------------------------------------------
+  pcf-td-web:
+    depends_on:
+      - pcf-td-mysql
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+      - VERSION=${VERSION}
+      labels:
+        com.fiserv.edd.pcf.td: ${TAG}
+    image: pcf-td-web:${TAG}
+    container_name: pcf-td-web
+    networks:
+      - dev
+    ports:
+      - ${PORT}:8080
+    environment:
+      - TZ=America/Chicago
+    volumes:
+    - ${LOG_VOLUME}:/tmp/pcf-td/logs
