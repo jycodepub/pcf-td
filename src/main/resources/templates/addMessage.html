@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Guest Book</title>
+</head>
+<body>
+    <h2>Sign My Guest Book & Leave a Message</h2>
+    <div><a href="/">Home</a></div>
+    <form action="#" th:action="@{/messages/add}" th:object="${msg}" method="post">
+        <table>
+            <tr>
+                <td><label for="name">Name:</label></td>
+                <td><input id="name" name="name" type="text" th:field="*{name}"/></td>
+            </tr>
+            <tr>
+                <td><label for="content">Message:</label></td>
+                <td><textarea id="content" name="content" rows="5" cols="50" th:field="*{content}"></textarea></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Add"/></td><td></td>
+            </tr>
+        </table>
+    </form>
+    <p th:text="${response}"></p>
+</body>
+</html>
