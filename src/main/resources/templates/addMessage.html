@@ -3,6 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/style.css" type="text/css">
     <title>Guest Book</title>
 </head>
 <body>
@@ -11,11 +12,11 @@
     <form action="#" th:action="@{/messages/add}" th:object="${msg}" method="post">
         <table>
             <tr>
-                <td><label for="name">Name:</label></td>
+                <td><label for="name" class="bold">Name:</label></td>
                 <td><input id="name" name="name" type="text" th:field="*{name}"/></td>
             </tr>
             <tr>
-                <td><label for="content">Message:</label></td>
+                <td><label for="content" class="bold">Message:</label></td>
                 <td><textarea id="content" name="content" rows="5" cols="50" th:field="*{content}"></textarea></td>
             </tr>
             <tr>

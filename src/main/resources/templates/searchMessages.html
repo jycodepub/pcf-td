@@ -3,6 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/style.css" type="text/css">
     <title>Guest Book</title>
 </head>
 <body>
@@ -11,8 +12,8 @@
 <form action="#" th:action="@{/messages/search}" th:object="${msg}" method="post">
     <table>
         <tr>
-            <td><label for="name">Name:</label></td>
-            <td><input type="text" id="name" name="name" th:field="*{name}"/></td>
+            <td><label for="name" class="bold">Name:</label></td>
+            <td><input type="text" id="name" name="name" th:field="*{name}"/>&nbsp;(Leave blank to search all messages)</td>
         </tr>
         <tr>
             <td><input type="submit" value="Search"/></td><td></td>
@@ -21,8 +22,9 @@
 </form>
 <p>
 Search Result:<br/>
-<table border="1">
-    <tr><td>Name</td><td>Message</td><td>Date</td></tr>
+<table id="result">
+    <tr><td class="bold">Name</td><td class="bold">Message</td><td class="bold">Date</td></tr>
+    <tr><td colspan="3"><hr/></td></tr>
     <tr th:each="hit: ${hits}">
         <td th:text="${hit.name}"></td>
         <td th:text="${hit.content}"></td>

@@ -1,0 +1,12 @@
+body {
+    font-family: sans-serif;
+    font-size: 10pt;
+}
+
+table#result {
+    width: 20%;
+}
+
+.bold {
+    font-weight: bold;
+}
