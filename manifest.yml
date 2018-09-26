@@ -2,8 +2,9 @@
 applications:
   - name: pcf-td
     instances: 1
-    path: build/libs/pcf-td-1.0.0.jar
+    path: build/libs/pcf-td-1.1.0.jar
     services:
       - guest-db
+      - guest-rmq
     env:
       SPRING_PROFILES_ACTIVE: pcf

@@ -1,5 +1,6 @@
 package com.fiserv.edd.pcftd
 
+import java.io.Serializable
 import java.time.LocalDate
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -7,7 +8,7 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 
 @Entity
-class GuestMessage() {
+class GuestMessage() : Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Int = 0

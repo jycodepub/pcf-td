@@ -1,5 +1,6 @@
 package com.fiserv.edd.pcftd
 
+import org.springframework.amqp.rabbit.core.RabbitTemplate
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -8,7 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
-class GuestMessageController(private val repository: GuestMessageRepository) {
+class GuestMessageController(private val repository: GuestMessageRepository,
+                             private val rabbitTemplate: RabbitTemplate) {
 
     @GetMapping("/messages/form")
     fun showForm(@RequestParam show: String, model: Model): String {
@@ -22,7 +24,7 @@ class GuestMessageController(private val repository: GuestMessageRepository) {
 
     @PostMapping("/messages/add")
     fun addMessage(@ModelAttribute("msg") msg: GuestMessage, model: Model): String {
-        repository.save(msg)
+        rabbitTemplate.convertAndSend(PcfTdApplication.QUEUE_NAME, msg)
         model.addAttribute("response", "Thank you ${msg.name}! Your message has been saved.")
         return "addMessage"
     }

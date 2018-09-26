@@ -20,7 +20,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 group = 'com.fiserv.edd'
-version = '1.0.0'
+version = '1.1.0'
 sourceCompatibility = 1.8
 compileKotlin {
     kotlinOptions {
@@ -48,6 +48,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-webflux')
     compile('com.fasterxml.jackson.module:jackson-module-kotlin')
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-amqp')
     runtime('mysql:mysql-connector-java')
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     compile("org.jetbrains.kotlin:kotlin-reflect")

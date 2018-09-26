@@ -15,25 +15,39 @@ services:
     image: pcf-td-mysql:${TAG}
     container_name: pcf-td-mysql
     networks:
-    - dev
+      - dev
     ports:
-    - ${MYSQL_PORT}:3306
+      - ${MYSQL_PORT}:3306
     environment:
-    - MYSQL_ROOT_PASSWORD=pcftd1
-    - MYSQL_USER=pcftd1
-    - MYSQL_PASSWORD=pcftd1
-    - TZ=America/Chicago
+      - MYSQL_ROOT_PASSWORD=pcftd1
+      - MYSQL_USER=pcftd1
+      - MYSQL_PASSWORD=pcftd1
+      - TZ=America/Chicago
+  #-------------------------------------------------
+  #                   RabbitMQ
+  #-------------------------------------------------
+  pcf-td-rmq:
+    image: rabbitmq:3-management
+    container_name: pcf-td-rmq
+    networks:
+      - dev
+    ports:
+      - 5672:5672
+      - 15672:15672
+    entrypoint:
+      - TZ=America/Chicago
   #-------------------------------------------------
   #                   pcf-td
   #-------------------------------------------------
   pcf-td-web:
     depends_on:
       - pcf-td-mysql
+      - pcf-td-rmq
     build:
       context: .
       dockerfile: Dockerfile
       args:
-      - VERSION=${VERSION}
+        - VERSION=${VERSION}
       labels:
         com.fiserv.edd.pcf.td: ${TAG}
     image: pcf-td-web:${TAG}
@@ -45,4 +59,4 @@ services:
     environment:
       - TZ=America/Chicago
     volumes:
-    - ${LOG_VOLUME}:/tmp/pcf-td/logs
+      - ${LOG_VOLUME}:/tmp/pcf-td/logs
