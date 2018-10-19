@@ -24,7 +24,7 @@ class GuestMessageController(private val repository: GuestMessageRepository,
 
     @PostMapping("/messages/add")
     fun addMessage(@ModelAttribute("msg") msg: GuestMessage, model: Model): String {
-        rabbitTemplate.convertAndSend(RabbitmqConfig.QUEUE_NAME, msg)
+        rabbitTemplate.convertAndSend("input.guest.message", msg)
         model.addAttribute("response", "Thank you ${msg.name}! Your message has been saved.")
         return "addMessage"
     }
